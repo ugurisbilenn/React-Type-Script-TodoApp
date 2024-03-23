@@ -1,24 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
+import React,{ChangeEvent, FC} from 'react';
+import { useState } from 'react';
+
 import './App.css';
 
-function App() {
+const  App: FC = () => {
+  const [task, setTask] = useState<string>('');
+  const [workDay, setWorkDay] = useState<number>(0);
+
+  const handleChange = (event:ChangeEvent<HTMLInputElement>) =>{
+    if(event.target.name === "task"){
+      setTask(event.target.value);
+    }else{
+      setWorkDay(Number(event.target.value));
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input type='text' value={task} 
+        placeholder='Taskınız'
+        name='task' 
+        onChange={handleChange}/>
+        <input type='number' 
+        value={workDay} 
+        name='workDay' 
+        placeholder='Kaç Günde tamamlamalısınız' 
+        onChange={handleChange}/>
+        <button>Yeni Task ekle</button>
+      </div>
     </div>
   );
 }
