@@ -36,22 +36,22 @@ const  App: FC = () => {
       return task.taskName !== nameToDelete;
     }));
   };
-  
+
   return (
     <div className="App">
-      <div>
-        <input type='text' value={task} 
+      <div className='mainCard'>
+        <input className='mainCardInput' type='text' value={task} 
         placeholder='Taskınız'
         name='task' 
         onChange={handleChange}/>
-        <input type='number' 
+        <input className='mainCardInput' type='number' 
         value={workDay} 
         name='workDay' 
         placeholder='Kaç Günde tamamlamalısınız' 
         onChange={handleChange}/>
-        <button onClick={addNewTask}>Yeni Task ekle</button>
+        <button className='mainCardButton' onClick={addNewTask}>Yeni Task ekle</button>
       </div>
-      <div>
+      <div className='todoCard'>
         {todoList.map((task: todoType, index: number)=>{
           return <TodoItem key={index} task={task} deleteTask={deleteTask} />
         })}
