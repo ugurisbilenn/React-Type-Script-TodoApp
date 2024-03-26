@@ -2,6 +2,7 @@ import React,{ChangeEvent, FC} from 'react';
 import { useState } from 'react';
 import {todoType} from './apptypes';
 import './App.css';
+import TodoItem from './TodoItem';
 
 
 
@@ -12,7 +13,7 @@ const  App: FC = () => {
 
 
   console.log(todoList);
-  
+
   const handleChange = (event:ChangeEvent<HTMLInputElement>) =>{
     if(event.target.name === "task"){
       setTask(event.target.value);
@@ -21,7 +22,7 @@ const  App: FC = () => {
     }
   };
 
-  const addNewTask = () =>{
+  const addNewTask = ():void =>{
     const newTask = {taskName:task, workDay:workDay};
     setTodoList([...todoList,newTask]);
     
@@ -29,6 +30,13 @@ const  App: FC = () => {
     setTask('');
     
   }
+
+  const deleteTask = (nameToDelete :string) : void =>{
+    setTodoList(todoList.filter((task) => {
+      return task.taskName !== nameToDelete;
+    }));
+  };
+  
   return (
     <div className="App">
       <div>
@@ -42,6 +50,11 @@ const  App: FC = () => {
         placeholder='Kaç Günde tamamlamalısınız' 
         onChange={handleChange}/>
         <button onClick={addNewTask}>Yeni Task ekle</button>
+      </div>
+      <div>
+        {todoList.map((task: todoType, index: number)=>{
+          return <TodoItem key={index} task={task} deleteTask={deleteTask} />
+        })}
       </div>
     </div>
   );
